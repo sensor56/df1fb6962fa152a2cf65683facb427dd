@@ -73,3 +73,57 @@ Serial.print(" mais ne peut pas obtenir l'adresse. Verifier cablage et connexion
   }
 
 }
+
+ // fonction pour afficher la température d'un capteur
+void printTemperature(DeviceAddress deviceAddress)
+{
+  // method 1 - slower
+  //Serial.print("Temp C: ");
+  //Serial.print(sensors.getTempC(deviceAddress));
+  //Serial.print(" Temp F: ");
+  //Serial.print(sensors.getTempF(deviceAddress)); // Makes a second call to getTempC and then converts to Fahrenheit
+
+  // method 2 - faster
+  float tempC = sensors.getTempC(deviceAddress);
+  Serial.print("Temp C: ");
+  Serial.print(tempC);
+  Serial.print(" Temp F: ");
+  Serial.println(DallasTemperature::toFahrenheit(tempC)); // Converts tempC to Fahrenheit
+}
+
+void loop(void)
+{
+  // requete de température pour tous les capteurs du bus 
+  Serial.print("Lance mesure des temperatures...");
+  sensors.requestTemperatures(); // envoi la commande pour obtenir la température
+  Serial.println("DONE");
+  
+  
+  // défile les capteurs et affiche la température
+  for(int i=0;i<numberOfDevices; i++)
+  {
+    // Search the wire for address
+    if(sensors.getAddress(tempDeviceAddress, i))
+{
+// Affiche l'index du capteur
+Serial.print("Temperature du capteur : ");
+Serial.println(i,DEC);
+
+
+printTemperature(tempDeviceAddress); // Appelle la fonction pour afficher les données 
+}
+
+
+  }
+}
+
+// Fonction pour afficher l'adresse d'un capteur 
+void printAddress(DeviceAddress deviceAddress)
+{
+  for (uint8_t i = 0; i < 8; i++)
+  {
+    if (deviceAddress[i] < 16) Serial.print("0");
+    Serial.print(deviceAddress[i], HEX);
+  }
+}
+
