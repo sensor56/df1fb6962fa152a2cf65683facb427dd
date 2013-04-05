@@ -66,7 +66,7 @@ while (capteur.search(adresse)!= true) { }// attend qu'un capteur soit détecté
   }
   
   Serial.println("------------"); 
-
+  Serial.println(); 
 
 } // fin de la fonction setup()
 
@@ -76,5 +76,3 @@ void loop(){ // debut de la fonction loop()
 
 } // fin de la fonction loop() - le programme recommence au début de la fonction loop sans fin
 
-
-  Serial.println(); 
