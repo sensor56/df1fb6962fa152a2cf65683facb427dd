@@ -23,6 +23,7 @@ float temperaturef=0.0; // variable décimale pour stocker la température réel
 
 //---- code d'instruction du capteur
 const int modeLecture=0xBE;
+const int lancerMesure=0x44;
 
 // --- Déclaration des objets utiles pour les fonctionnalités utilisées ---
 OneWire  capteur(broche_OneWire);  // crée un objet One Wire sur la broche voulue
